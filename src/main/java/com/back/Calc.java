@@ -42,7 +42,24 @@ public class Calc {
         return left * right;
     }
     private static int findSplitIndex(String expr, String[] strings) {
+        int splitIdx = -1 ;
+        for(int i= expr.length() -1 ; i>=0 ; i--) {
+            char c = expr.charAt(i);
 
+            for (String op : strings) {
+                if (c == op.charAt(0)) {
+                    if (c == '-') {
+                        if (i == 0) continue;
+
+                        char prevChar = expr.substring(0, i).trim().charAt(expr.substring(0, i).trim().length() - 1);
+                        if (prevChar == '+' || prevChar == '-' || prevChar == '*') continue;
+                    }
+                    return i;
+                }
+            }
+        }
+
+        return splitIdx;
     }
 
 
